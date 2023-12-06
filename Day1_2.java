@@ -3,30 +3,44 @@ import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.util.ArrayList;
 import java.util.Scanner; // Import the Scanner class to read text files
 
+// > 5210 < 5309
+
 public class Day1_2 {
 
-    static String[] convertString = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"}; 
-    static String[] convertNumber = {"1", "2", "3", "4", "5", "6", "7", "8", "9"}; 
+    static String[] convertFromString = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"}; 
     
     static ArrayList<String> input = new ArrayList<String>(); // Create an ArrayList object
-    static ArrayList<ArrayList> cleanedInput = new ArrayList<ArrayList>(); // Create an ArrayList object
+    static ArrayList<Integer> firstNumber = new ArrayList<Integer>(); // Create an ArrayList object
+    static ArrayList<Integer> lastNumber = new ArrayList<Integer>(); // Create an ArrayList object
 
-    public static class Value{
-        int val;
-        int index;
-
-        public Value(int val, int index){
-            this.val = val;
-            this.index = index;
+    public static int getFirstNumber(String string) {
+        for (int i = 0; i < string.length(); i++) {
+            if (Character.isDigit(string.charAt(i))) {
+                return Character.getNumericValue(string.charAt(i));
+            }
+            for (int x = 0; x < convertFromString.length; x++) {
+                if (string.indexOf(convertFromString[x]) <= i) {
+                    return (x+1);
+                }
+            }
         }
+        System.out.println("adasd");
+        return -1;
+    }
 
-        public int getIndex(){
-            return index;
+    public static int getLastNumber(String string) {
+        for (int i = string.length()-1; i >= 0; i--) {
+            if (Character.isDigit(string.charAt(i))) {
+                return Character.getNumericValue(string.charAt(i));
+            }
+            for (int x = 0; x < convertFromString.length; x++) {
+                if (string.indexOf(convertFromString[x]) == i) {
+                    return (x+1);
+                }
+            }
         }
-
-        public int getValue(){
-            return val;
-        }
+        System.out.println("adasd");
+        return -1;
     }
 
     public static void main(String[] args) {
@@ -41,25 +55,13 @@ public class Day1_2 {
             myReader.close();
         } catch (FileNotFoundException e) {}
 
+        int sum = 0;
         for (String string : input) {
-            ArrayList<Value> temp = new ArrayList<Value>();
-            for (int i = 0; i < convertString.length; i++) {
-                if(string.indexOf(convertString[i]) >= 0) {
-                    temp.add(new Value(i+1, string.indexOf(convertString[i])));
-                }
-            }
-            for (int i = 0; i < convertNumber.length; i++) {
-                if(string.indexOf(convertNumber[i]) >= 0) {
-                    temp.add(new Value(i+1, string.indexOf(convertNumber[i])));
-                }
-            }
-            cleanedInput.add(temp);
-            for (Value val : temp) {
-                System.out.println("Value: " + val.getValue() + " | Index: " + val.getIndex());
-            }
+            sum += Integer.valueOf("" + getFirstNumber(string) + getLastNumber(string));
         }
-        
+        System.out.println(sum);
 
-        // System.out.println(input.get(0));
+        // String test = "37";
+        // System.out.println(Integer.valueOf("" + getFirstNumber(test) + getLastNumber(test)));
     }
 }
