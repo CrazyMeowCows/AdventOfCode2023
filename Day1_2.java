@@ -19,12 +19,11 @@ public class Day1_2 {
                 return Character.getNumericValue(string.charAt(i));
             }
             for (int x = 0; x < convertFromString.length; x++) {
-                if (string.indexOf(convertFromString[x]) <= i) {
+                if (string.substring(0, i+1).contains(convertFromString[x])) {
                     return (x+1);
                 }
             }
         }
-        System.out.println("adasd");
         return -1;
     }
 
@@ -34,12 +33,11 @@ public class Day1_2 {
                 return Character.getNumericValue(string.charAt(i));
             }
             for (int x = 0; x < convertFromString.length; x++) {
-                if (string.indexOf(convertFromString[x]) == i) {
+                if (string.substring(i).contains(convertFromString[x])) {
                     return (x+1);
                 }
             }
         }
-        System.out.println("adasd");
         return -1;
     }
 
@@ -57,11 +55,11 @@ public class Day1_2 {
 
         int sum = 0;
         for (String string : input) {
+            System.out.println(getLastNumber(string));
             sum += Integer.valueOf("" + getFirstNumber(string) + getLastNumber(string));
         }
         System.out.println(sum);
 
-        // String test = "37";
-        // System.out.println(Integer.valueOf("" + getFirstNumber(test) + getLastNumber(test)));
+        // System.out.println("abcde".substring(0, 5));
     }
 }
