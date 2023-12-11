@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import java.util.Scanner; // Import the Scanner class to read text files
 
 public class Day5_1 {
-    static long[] seeds = {487758422L,524336848L,2531594804L,27107767L,1343486056L,124327551L,1117929819L,93097070L,3305050822L,442320425L,2324984130L,87604424L,4216329536L,45038934L,1482842780L,224610898L,115202033L,371332058L,2845474954L,19257985L};
+    static long[] seeds = {2845474954L,19257985L};
     static ArrayList<ArrayList<AlmanacMap>> almanacMaps = new ArrayList<ArrayList<AlmanacMap>>();
-    static ArrayList<Long> results = new ArrayList<Long>();
 
     public static class AlmanacMap{
         long destinationStart;
@@ -43,7 +42,7 @@ public class Day5_1 {
     public static void main(String[] args) {
         int index = -1;
         try {
-            Scanner reader = new Scanner(new File("testinput.txt"));
+            Scanner reader = new Scanner(new File("input.txt"));
 
             while (reader.hasNextLine()) {
                 String data = reader.nextLine();
@@ -60,19 +59,15 @@ public class Day5_1 {
             System.out.println(e);
         }
 
+        long min = Long.MAX_VALUE;
         for (int x = 0; x < seeds.length; x += 2) {
             for (long i = seeds[x]; i < (seeds[x]+seeds[x+1]); i++) {
                 long seed = i;
                 for (ArrayList<AlmanacMap> map : almanacMaps) {
                     seed = convertSeed(seed, map);
                 }
-                results.add(seed);
+                min = Math.min(min, seed);
             }
-        }
-
-        long min = results.get(0);
-        for (long seed : results) {
-            min = Math.min(min, seed);
         }
         System.out.println(min);
     }
